@@ -79,6 +79,35 @@
     background-color: #f3f3f3;
 }
 
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;  
+    height: 40px; 
+    border-radius: 50%; 
+    background-color: rgb(255, 194, 79); 
+    color: black;  
+    cursor: pointer;  
+    transition: background-color 0.3s;  
+  }
+
+  .icon-button:nth-child(1) {
+    margin-right: 8px;
+  }
+
+  .icon-button:nth-child(2) {
+    background-color: rgb(255, 70, 70);
+  }
+  
+  .icon-button:hover {
+    background-color: orange; 
+  }
+
+  .icon-button:hover:nth-child(2) {
+    background-color: red; 
+  }
+  
 /* STILIZOVANJE FORME ZA UNOS */
 .form-container {
     margin: 100px 350px; 

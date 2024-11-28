@@ -1,13 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AddExpense = () => {
+    const location = useLocation(); 
+    const navigate = useNavigate(); 
     const [form, setForm] = useState({ category: '', amount: '', date: '', description: '' });
+
+    const isEditing = location.state?.expense; 
+
+    useEffect(() => {
+        if (isEditing) {
+            const { category, amount, date, description } = location.state.expense;
+            setForm({
+                category,
+                amount,
+                date: new Date(date).toISOString().split('T')[0], 
+                description,
+            });
+        }
+    }, [isEditing]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:5000/api/expenses', form);
-        setForm({ category: '', amount: '', date: '', description: '' });
+
+        try {
+            if (isEditing) {
+                await axios.put(
+                    `http://localhost:5000/api/expenses/${location.state.expense._id}`,
+                    form
+                );
+            } else {
+                await axios.post('http://localhost:5000/api/expenses', form);
+            }
+
+            setForm({
+                category: '',
+                amount: '',
+                date: '',
+                description: '',
+            });
+            navigate('/expenses');
+        } catch (err) {
+            console.error('Greška prilikom čuvanja troška:', err);
+        }
     };
 
     return (
@@ -41,7 +77,7 @@ const AddExpense = () => {
                 <br/>
 
                 <textarea placeholder="Description" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /> <br/>
-                <button type="submit">Add expense</button>
+                <button type="submit">{isEditing ? 'Save Changes' : 'Add Expense'}</button>
             </form>
         </div>
     );

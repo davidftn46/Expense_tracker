@@ -24,4 +24,28 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Ažuriramo trosak
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedExpense = await Expense.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true } 
+        );
+        res.status(200).json(updatedExpense);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// Brisemo trosak
+router.delete('/:id', async (req, res) => {
+    try {
+        await Expense.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: 'Trošak je uspešno obrisan.' });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 export default router;
