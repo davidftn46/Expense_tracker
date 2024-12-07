@@ -158,7 +158,7 @@
     background-color: #555; 
 }
 
-/* STILIZOVANJE GRAFIKONA */
+/* STILIZOVANJE GRAF STRANICE */
 .charts-container {
     display: flex; 
     justify-content: space-between; 
@@ -187,3 +187,32 @@
     width: 100% !important;
     height: 517px !important; 
 }
+
+/* STILIZOVANJE HOME STRANICE */
+.home-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 60px;
+  }
+  
+  .home-image {
+    width: 400px;
+    height: auto;
+  }
+  
+  .home-quote {
+    font-size: 24px;
+    color: #333;
+    font-family: 'Verdana';
+    font-style: italic;
+    margin-top: 140px;
+  }
+
+  .home-author {
+    display: block; 
+    text-align: right; 
+    margin-top: 60px;
+    margin-right: 20px; 
+  }
+  

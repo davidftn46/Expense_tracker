@@ -1,16 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import './App.css';
 import Expenses from './pages/Expenses';
 import AddExpense from './pages/AddExpense';
 import Graph from './pages/Graph';
+import Home from './pages/Home';
 
 const App = () => {
     return (
         <Router>
             <header className="header">
                 <div className="nav-left">
-                    <Link to="/" className="nav-link">Home</Link>
+                    <Link to="/home" className="nav-link">Home</Link>
                 </div>
                 <div className="nav-right">
                     <ul className="nav-links">
@@ -27,9 +28,12 @@ const App = () => {
                 </div>
             </header>
             <Routes>
+                {/*Po default-u se preusmeravamo na Home stranicu*/}
+                <Route path="/" element={<Navigate to="/home" replace/>}/>
                 <Route path="/expenses" element={<Expenses/>}/>
                 <Route path="/add-expense" element={<AddExpense/>}/>
                 <Route path="/graph" element={<Graph/>}/>
+                <Route path="/home" element={<Home/>}/>
             </Routes>
         </Router>
     );
