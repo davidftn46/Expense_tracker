@@ -42,7 +42,7 @@ const AddExpense = () => {
             });
             navigate('/expenses');
         } catch (err) {
-            console.error('Greška prilikom čuvanja troška:', err);
+            console.error('Error saving expense:', err);
         }
     };
 

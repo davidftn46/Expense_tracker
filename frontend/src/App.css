@@ -43,12 +43,43 @@
 }
 
 /* STILIZOVANJE TABELE */
+.table-category-filter {
+    display: flex;
+}
+
+.header-with-slider {
+    display: flex;
+    align-items: center;
+}
+
+.slider-container {
+    position: relative;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    color: #333;
+    margin-left: 100px;
+    margin-top: 35px;
+}
+
+#priceRange {
+    position: absolute;
+    top: 1px;
+    right: -150px;
+}
+
+#money {
+    position: absolute;
+    top: 1px;
+    right: -225px;
+}
+
 .table-title {
     color: #333;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin-top: 50px;
     margin-left: 270px;
 }
+
 .content-table {
     margin: 25px 270px;
     color: #333;
@@ -71,6 +102,7 @@
 
 .content-table th,
 .content-table td {
+    position: relative;
     padding: 12px 15px;
     border: 1px solid #333;
 }
@@ -90,23 +122,42 @@
     color: black;  
     cursor: pointer;  
     transition: background-color 0.3s;  
-  }
+}
 
-  .icon-button:nth-child(1) {
+.icon-button:nth-child(1) {
     margin-right: 8px;
-  }
+}
 
-  .icon-button:nth-child(2) {
+.icon-button:nth-child(2) {
     background-color: rgb(255, 70, 70);
-  }
-  
-  .icon-button:hover {
-    background-color: orange; 
-  }
+}
 
-  .icon-button:hover:nth-child(2) {
+.icon-button:hover {
+    background-color: orange; 
+}
+
+.icon-button:hover:nth-child(2) {
     background-color: red; 
-  }
+}
+
+.sort-arrow {
+    position: absolute;
+    right: 10px;   
+    transform: translateY(-25%);
+    font-size: 20px; 
+    color: white; 
+}
+
+.table-hand {
+    cursor: grab;
+}
+
+.category-filter {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #333;
+    margin-left: -200px;
+    margin-top: 1px;
+}
   
 /* STILIZOVANJE FORME ZA UNOS */
 .form-container {
