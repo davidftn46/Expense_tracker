@@ -10,6 +10,8 @@ const Expenses = () => {
     const [selectedCategories, setSelectedCategories] = useState([]); // Trenutno izabrane kategorije za filtriranje
     const [priceRange, setPriceRange] = useState([0, 0]); // Trenutni opseg cena za filtriranje
     const [maxPrice, setMaxPrice] = useState(0); // Maksimalna cena za podesavanje slajdera
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Stanje modala
+    const [expenseToDelete, setExpenseToDelete] = useState(null); // Trosak za brisanje
     const navigate = useNavigate(); // Navigacija između stranica
 
     // Dohvatanje troskova sa servera kada se komponenta ucita
@@ -32,15 +34,29 @@ const Expenses = () => {
     }, []);
 
     // Funkcija za brisanje troska sa servera i azuriranje lokalnih podataka
-    const deleteExpense = async (id) => {
+    const deleteExpense = async () => {
+        if (!expenseToDelete) return;
         try {
-            await axios.delete(`http://localhost:5000/api/expenses/${id}`);
-            const updatedExpenses = expenses.filter((expense) => expense._id !== id);
+            await axios.delete(`http://localhost:5000/api/expenses/${expenseToDelete}`);
+            const updatedExpenses = expenses.filter((expense) => expense._id !== expenseToDelete);
             setExpenses(updatedExpenses);
             setOriginalExpenses(updatedExpenses); // Ažuriramo i originalne podatke
+            closeDeleteModal();
         } catch (err) {
             console.error('Error deleting expense:', err);
         }
+    };
+
+    // Funkcija koja otvara modal za brisanje
+    const openDeleteModal = (id) => {
+        setExpenseToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
+
+    // Funkcija koja zatvara modal za brisanje
+    const closeDeleteModal = () => {
+        setExpenseToDelete(null);
+        setIsDeleteModalOpen(false);
     };
 
     // Funkcija za uredjivanje troska - navigacija na stranicu za uredjivanje sa podacima troska
@@ -210,7 +226,7 @@ const Expenses = () => {
                                     <span className="icon-button" onClick={() => editExpense(expense)}>
                                         <Edit/>
                                     </span>
-                                    <span className="icon-button" onClick={() => deleteExpense(expense._id)}>
+                                    <span className="icon-button" onClick={() => openDeleteModal(expense._id)}>
                                         <Delete/>
                                     </span>
                                 </td>
@@ -234,6 +250,23 @@ const Expenses = () => {
                     ))}
                 </div>
             </div>
+            {isDeleteModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <div className="modal-content">
+                            <h3>Are you sure you want to delete this expense?</h3>
+                            <div className="modal-buttons">
+                                <button className="btn btn-delete" onClick={deleteExpense}>
+                                    Delete
+                                </button>
+                                <button className="btn btn-cancel" onClick={closeDeleteModal}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
